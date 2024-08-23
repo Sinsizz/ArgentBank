@@ -6,7 +6,7 @@ import '../asset/main.css';
 import logo from '../asset/img/argentBankLogo.png'; 
 
 function SignIn() {
-  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
   const dispatch = useDispatch();
@@ -20,18 +20,30 @@ function SignIn() {
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ email: username, password }),
+        body: JSON.stringify({ email, password }),
       });
+      
+      const data = await response.json();
+      
       if (response.ok) {
-        const data = await response.json();
-        dispatch(login({
-          userData: data.body,
-          token: data.body.token,
-        }));
+        console.log('Login successful, received data:', data); // Log pour le débogage
+        
+        // Vérifiez la structure de la réponse
+        const token = data.body.token;
+        if (!token) {
+          throw new Error('Token not found in response');
+        }
+        
+        dispatch(login({ token }));
+        
+        if (rememberMe) {
+          localStorage.setItem('token', token);
+        }
+        
         navigate('/user');
       } else {
-        // Gérer les erreurs de connexion
-        alert('Échec de la connexion. Veuillez vérifier vos identifiants.');
+        console.error('Login failed:', data); // Log pour le débogage
+        alert(data.message || 'Email ou mot de passe invalide. Veuillez réessayer.');
       }
     } catch (error) {
       console.error('Erreur lors de la connexion:', error);
@@ -64,12 +76,13 @@ function SignIn() {
           <h1>Sign In</h1>
           <form onSubmit={handleSubmit}>
             <div className="input-wrapper">
-              <label htmlFor="username">Username</label>
+              <label htmlFor="email">Email</label>
               <input 
-                type="text" 
-                id="username" 
-                value={username}
-                onChange={(e) => setUsername(e.target.value)}
+                type="email" 
+                id="email" 
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
+                required
               />
             </div>
             <div className="input-wrapper">
@@ -79,6 +92,7 @@ function SignIn() {
                 id="password" 
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
+                required
               />
             </div>
             <div className="input-remember">

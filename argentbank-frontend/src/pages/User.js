@@ -1,8 +1,45 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
-import logo from '../asset/img/argentBankLogo.png'; // Assurez-vous que le chemin est correct
+import React, { useEffect, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { fetchUserProfile } from '../store/userActions';
+import { logout } from '../store/userSlice';
+import logo from '../asset/img/argentBankLogo.png'; 
 
 function User() {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const { profile, token } = useSelector(state => state.user);
+  const [isEditing, setIsEditing] = useState(false);
+  const [newName, setNewName] = useState('');
+
+  useEffect(() => {
+    if (!token) {
+      navigate('/sign-in');
+    } else if (!profile) {
+      dispatch(fetchUserProfile());
+    }
+  }, [token, profile, dispatch, navigate]);
+
+  const handleLogout = () => {
+    dispatch(logout());
+    navigate('/');
+  };
+
+  const handleEditName = () => {
+    setIsEditing(true);
+    setNewName(profile?.firstName || '');
+  };
+
+  const handleSaveName = () => {
+    // Ici, vous devriez appeler une action pour mettre à jour le nom sur le serveur
+    // Pour l'instant, nous allons juste fermer le mode d'édition
+    setIsEditing(false);
+  };
+
+  if (!profile) {
+    return <div>Loading...</div>;
+  }
+
   return (
     <div className="App">
       <nav className="main-nav">
@@ -17,18 +54,30 @@ function User() {
         <div>
           <Link className="main-nav-item" to="/profile">
             <i className="fa fa-user-circle"></i>
-            Tony
+            {profile.firstName}
           </Link>
-          <Link className="main-nav-item" to="/">
+          <button className="main-nav-item" onClick={handleLogout}>
             <i className="fa fa-sign-out"></i>
             Sign Out
-          </Link>
+          </button>
         </div>
       </nav>
       <main className="main bg-dark">
         <div className="header">
-          <h1>Welcome back<br />Tony Jarvis!</h1>
-          <button className="edit-button">Edit Name</button>
+          <h1>Welcome back<br />{isEditing ? (
+            <input 
+              type="text" 
+              value={newName} 
+              onChange={(e) => setNewName(e.target.value)}
+            />
+          ) : (
+            `${profile.firstName} ${profile.lastName}!`
+          )}</h1>
+          {isEditing ? (
+            <button className="edit-button" onClick={handleSaveName}>Save</button>
+          ) : (
+            <button className="edit-button" onClick={handleEditName}>Edit Name</button>
+          )}
         </div>
         <h2 className="sr-only">Accounts</h2>
         <section className="account">
