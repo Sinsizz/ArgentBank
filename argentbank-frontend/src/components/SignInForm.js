@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
-import { login } from '../store/userSlice';
+import { setToken } from '../store/userSlice';
 
 function SignInForm() {
   const [email, setEmail] = useState('');
@@ -31,7 +31,7 @@ function SignInForm() {
           throw new Error('Token not found in response');
         }
         
-        dispatch(login({ token }));
+        dispatch(setToken(token));
         
         if (rememberMe) {
           localStorage.setItem('token', token);

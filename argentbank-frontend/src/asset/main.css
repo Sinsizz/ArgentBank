@@ -1,3 +1,4 @@
+/* Base Styles */
 html {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -21,25 +22,44 @@ p {
   color: #222;
 }
 
+h1 {
+  color: #2c3e50;
+}
+
+/* Utility Classes */
 .sr-only {
   border: 0 !important;
-  clip: rect(1px, 1px, 1px, 1px) !important; /* 1 */
+  clip: rect(1px, 1px, 1px, 1px) !important;
   -webkit-clip-path: inset(50%) !important;
-  clip-path: inset(50%) !important; /* 2 */
+  clip-path: inset(50%) !important;
   height: 1px !important;
   margin: -1px !important;
   overflow: hidden !important;
   padding: 0 !important;
   position: absolute !important;
   width: 1px !important;
-  white-space: nowrap !important; /* 3 */
+  white-space: nowrap !important;
 }
 
+.container {
+  width: 80%;
+  margin: 0 auto;
+  max-width: 1200px;
+}
+
+/* Navigation Styles */
 .main-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 0;
+}
+
+.main-nav-content {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 5px 20px;
+  width: 100%;
 }
 
 .main-nav a {
@@ -52,12 +72,29 @@ p {
 }
 
 .main-nav-item {
+  display: flex;
+  align-items: center;
   text-decoration: none;
+  color: #2c3e50;
   margin-right: 0.5rem;
+}
+
+.main-nav-items {
+  display: flex;
+  align-items: center;
 }
 
 .main-nav-item:hover {
   text-decoration: underline;
+}
+
+.main-nav-item:not(.user-info) .nav-icon {
+  margin-left: 1.5rem;
+  color: #00bc77;
+}
+
+.main-nav-item:not(.user-info):hover .nav-icon {
+  color: #13d18b;
 }
 
 .main-nav-logo {
@@ -70,6 +107,52 @@ p {
   width: 200px;
 }
 
+/* User Info Styles */
+.user-info-container,
+.user-info {
+  display: flex;
+  align-items: center;
+}
+
+.user-name {
+  margin-right: 1rem;
+  color: #00bc77;
+}
+
+.user-icon {
+  color: white;
+  font-size: 1rem;
+}
+
+.user-icon-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+.user-icon-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 45px;
+  height: 45px;
+  background-color: #00bc77;
+  border-radius: 50%;
+}
+
+.nav-icon {
+  font-size: 2rem;
+}
+
+.power-button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Hero Section Styles */
 .hero {
   background-image: url('../asset/img/bank-tree.jpeg');
   background-position: 0 -50px;
@@ -101,39 +184,10 @@ p {
   font-size: 0.9rem;
 }
 
-@media (min-width: 920px) {
-  .hero {
-    height: 400px;
-    background-position: 0% 33%;
-  }
-
-  .hero-content {
-    position: absolute;
-    top: 50px;
-    right: 50px;
-    width: 300px;
-    margin: 2rem;
-  }
-
-  .hero-content .subtitle {
-    font-size: 1.5rem;
-  }
-
-  .hero-content .text {
-    font-size: 1.2rem;
-    color: #222;
-  }
-}
-
+/* Features Section Styles */
 .features {
   display: flex;
   flex-direction: column;
-}
-
-@media (min-width: 920px) {
-  .features {
-    flex-direction: row;
-  }
 }
 
 .feature-icon {
@@ -155,6 +209,7 @@ p {
   margin-bottom: 0.5rem;
 }
 
+/* Sign In Styles */
 .sign-in-button {
   display: block;
   width: 100%;
@@ -203,6 +258,7 @@ p {
   font-size: 1.2rem;
 }
 
+/* Footer Styles */
 .footer {
   display: flex;
   justify-content: center;
@@ -217,7 +273,9 @@ p {
   color: #2c3e50;
 }
 
+/* Account Styles */
 .account {
+  position: relative;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -230,6 +288,7 @@ p {
   box-sizing: border-box;
   text-align: left;
   margin-bottom: 2rem;
+  max-width: 1200px;
 }
 
 .account-amount {
@@ -257,6 +316,14 @@ p {
   flex: 1;
 }
 
+/* Edit User Form Styles */
+.edit-form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .edit-button {
   border-color: #00bc77;
   background-color: #00bc77;
@@ -265,18 +332,99 @@ p {
   padding: 10px;
 }
 
-.header {
-  color: #fff;
-  margin-bottom: 2rem;
-}
-
-h1 {
+.edit-user-form {
+  background-color: white;
+  padding: 2rem;
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
   color: #2c3e50;
 }
 
-.transaction-button {
-  display: block;
+.edit-user-form .input-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: center !important;
+  margin-bottom: 1rem;
+}
+
+.edit-user-form .button-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+}
+
+.edit-user-form h2 {
+  text-align: center;
+  margin-bottom: 1.5rem;
+}
+
+.edit-user-form label {
+  flex: 0 0 100px;
+  text-align: right;
+  margin-right: 1rem;
+  font-weight: bold;
+  color: #2c3e50;
+}
+
+.edit-user-form input {
+  flex: 0 1 150px;
+  padding: 0.5rem;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+.edit-user-form input:disabled {
+  background-color: #f3f3f3;
+}
+
+.edit-user-form .edit-button {
+  padding: 0.5rem 1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+}
+
+.edit-user-form .edit-button[type="submit"] {
+  background-color: #00bc77;
+  color: white;
+  border: none;
+}
+
+.edit-user-form .edit-button[type="button"] {
+  background-color: #fff;
+  color: #2c3e50;
+  border: 1px solid #2c3e50;
+}
+
+/* Message Styles */
+.error-message {
+  color: #d32f2f;
+  margin-bottom: 1rem;
+}
+
+.success-message {
+  color: #388e3c;
+  margin-bottom: 1rem;
+}
+
+/* Header Styles */
+.header {
+  color: #fff;
+  margin-bottom: 2rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   width: 100%;
+}
+
+/* Transaction Styles */
+.transaction-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 200px;
   padding: 8px;
   font-size: 1.1rem;
   font-weight: bold;
@@ -284,6 +432,70 @@ h1 {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  cursor: pointer;
+}
+
+.transaction-button svg {
+  margin-right: 0.5rem;
+}
+
+.transaction-details {
+  width: 100%;
+  padding: 1rem;
+  background-color: #f3f3f3;
+  border-top: 2px solid #00bc77;
+  margin-top: 1rem;
+}
+
+.transaction-icon-button {
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0;
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  transition: transform 0.3s ease;
+}
+
+.transaction-icon-button.open {
+  transform: translateY(-50%) rotate(90deg);
+}
+
+.transaction-icon-button:focus {
+  outline: none;
+}
+
+/* Media Queries */
+@media (min-width: 920px) {
+  .hero {
+    height: 400px;
+    background-position: 0% 33%;
+  }
+
+  .hero-content {
+    position: absolute;
+    top: 50px;
+    right: 50px;
+    width: 300px;
+    margin: 2rem;
+  }
+
+  .hero-content .subtitle {
+    font-size: 1.5rem;
+  }
+
+  .hero-content .text {
+    font-size: 1.2rem;
+    color: #222;
+  }
+
+  .features {
+    flex-direction: row;
+  }
 }
 
 @media (min-width: 720px) {

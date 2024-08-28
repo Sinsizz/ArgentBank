@@ -1,34 +1,40 @@
-import React, { useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { fetchUserProfile } from '../store/userActions';
-import Header from '../components/Header';
 import Navigation from '../components/Navigation';
 import AccountSection from '../components/AccountSection';
 import Footer from '../components/Footer';
+import EditUserForm from '../components/EditUserForm';
+import { fetchUserProfile } from '../store/userSlice';
 
 function User() {
   const dispatch = useDispatch();
-  const navigate = useNavigate();
-  const { profile, token } = useSelector(state => state.user);
+  const { profile, token, status, error } = useSelector(state => state.user);
+  const [showEditForm, setShowEditForm] = useState(false);
 
   useEffect(() => {
-    if (!token) {
-      navigate('/sign-in');
-    } else if (!profile) {
+    if (token && !profile) {
       dispatch(fetchUserProfile());
     }
-  }, [token, profile, dispatch, navigate]);
+  }, [dispatch, token, profile]);
 
-  if (!profile) {
-    return <div>Loading...</div>;
-  }
+  if (status === 'loading') return <div>Loading...</div>;
+  if (status === 'failed') return <div>Error: {error}</div>;
+  if (!profile) return <div>No profile data available</div>;
 
   return (
     <div className="App">
       <Navigation />
       <main className="main bg-dark">
-        <Header />
+        <div className="header">
+          {showEditForm ? (
+            <EditUserForm onClose={() => setShowEditForm(false)} />
+          ) : (
+            <>
+              <h1>Welcome back<br />{profile.firstName} {profile.lastName}!</h1>
+              <button className="edit-button" onClick={() => setShowEditForm(true)}>Edit Name</button>
+            </>
+          )}
+        </div>
         <h2 className="sr-only">Accounts</h2>
         <AccountSection 
           title="Argent Bank Checking (x8349)"
