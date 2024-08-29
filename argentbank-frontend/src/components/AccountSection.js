@@ -10,24 +10,26 @@ function AccountSection({ title, amount, description }) {
   };
 
   return (
-    <section className="account">
-      <div className="account-content-wrapper">
-        <h3 className="account-title">{title}</h3>
-        <p className="account-amount">{amount}</p>
-        <p className="account-amount-description">{description}</p>
-      </div>
-      <div className="account-content-wrapper cta">
-      <button className="transaction-icon-button" onClick={toggleOpen}>
-  <FontAwesomeIcon icon={isOpen ? faTimes : faChevronRight} />
-</button>
-      </div>
-      {isOpen && (
+    <div className="account-container">
+      <section className="account">
+        <div className="account-content-wrapper">
+          <h3 className="account-title">{title}</h3>
+          <p className="account-amount">{amount}</p>
+          <p className="account-amount-description">{description}</p>
+        </div>
+        <div className="account-content-wrapper cta">
+          <button className="transaction-icon-button" onClick={toggleOpen}>
+            <FontAwesomeIcon icon={isOpen ? faTimes : faChevronRight} className={`transaction-arrow ${isOpen ? 'open' : ''}`} />
+          </button>
+        </div>
+      </section>
+      <div className={`transaction-details-wrapper ${isOpen ? 'open' : ''}`}>
         <div className="transaction-details">
           {/* Ici, vous pouvez ajouter les détails des transactions */}
           <p>Transaction details will be displayed here</p>
         </div>
-      )}
-    </section>
+      </div>
+    </div>
   );
 }
 

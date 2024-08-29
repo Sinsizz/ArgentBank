@@ -97,6 +97,10 @@ h1 {
   color: #13d18b;
 }
 
+.main-nav-item:hover .user-icon {
+  color: #13d18b; /* Ajouté pour correspondre au comportement de survol des autres icônes */
+}
+
 .main-nav-logo {
   display: flex;
   align-items: center;
@@ -120,8 +124,8 @@ h1 {
 }
 
 .user-icon {
-  color: white;
-  font-size: 1rem;
+  color: #00bc77; /* Changé de white à #00bc77 pour correspondre aux autres icônes */
+  font-size: 2rem; /* Augmenté la taille pour correspondre aux autres icônes */
 }
 
 .user-icon-button {
@@ -137,7 +141,7 @@ h1 {
   align-items: center;
   width: 45px;
   height: 45px;
-  background-color: #00bc77;
+  background-color: transparent; /* Changé de #00bc77 à transparent */
   border-radius: 50%;
 }
 
@@ -210,6 +214,8 @@ h1 {
 }
 
 /* Sign In Styles */
+
+
 .sign-in-button {
   display: block;
   width: 100%;
@@ -220,6 +226,11 @@ h1 {
   border-color: #00bc77;
   background-color: #00bc77;
   color: #fff;
+  border: 1px solid ;
+  border-radius: 5px;
+}
+.sign-in-button:hover{
+  background-color: #13d18b;
 }
 
 .sign-in-content {
@@ -240,6 +251,7 @@ h1 {
 
 .input-remember label {
   margin-left: 0.25rem;
+  color: #222;
 }
 
 .input-wrapper {
@@ -274,21 +286,25 @@ h1 {
 }
 
 /* Account Styles */
+.account-container {
+  width: 80%;
+  margin: 0 auto 2rem;
+  max-width: 1200px;
+  border: none;
+}
+
 .account {
-  position: relative;
   display: flex;
+  position: relative;
   justify-content: space-between;
   align-items: center;
   border: 1px solid black;
-  background-color: #2c3e50;
-  width: 80%;
-  margin: 0 auto;
-  flex-direction: column;
+  background-color: #393838;
+  width: 100%;
   padding: 1.5rem;
   box-sizing: border-box;
   text-align: left;
-  margin-bottom: 2rem;
-  max-width: 1200px;
+  border-radius: 7px;
 }
 
 .account-amount {
@@ -299,12 +315,12 @@ h1 {
 }
 
 .account-amount-description {
-  margin: 0;
+  margin-bottom: 0;
   color: #fff;
 }
 
 .account-title {
-  margin: 0;
+  margin-top: 0;
   padding: 0;
   font-size: 1rem;
   font-weight: normal;
@@ -325,11 +341,14 @@ h1 {
 }
 
 .edit-button {
-  border-color: #00bc77;
   background-color: #00bc77;
-  color: #fff;
-  font-weight: bold;
-  padding: 10px;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 30px;
+  padding-left: 30px;
+  border: 1px solid ;
+  border-radius: 5px;
 }
 
 .edit-user-form {
@@ -380,23 +399,24 @@ h1 {
 }
 
 .edit-user-form .edit-button {
-  padding: 0.5rem 1rem;
-  font-size: 1rem;
+  background-color: #00bc77;
+  color: white;
+  padding-top: 15px;
+  padding-bottom: 15px;
+  padding-right: 45px;
+  padding-left: 45px;
+  border: 1px solid ;
+  border-radius: 5px;
+  font-size: 0.8rem;
   cursor: pointer;
   margin: 0 0.5rem;
 }
 
-.edit-user-form .edit-button[type="submit"] {
-  background-color: #00bc77;
-  color: white;
-  border: none;
+.edit-button:hover {
+  background-color: #13d18b;
 }
 
-.edit-user-form .edit-button[type="button"] {
-  background-color: #fff;
-  color: #2c3e50;
-  border: 1px solid #2c3e50;
-}
+
 
 /* Message Styles */
 .error-message {
@@ -451,7 +471,7 @@ h1 {
   background: none;
   border: none;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: 3rem;
   cursor: pointer;
   padding: 0;
   position: absolute;
@@ -467,6 +487,32 @@ h1 {
 
 .transaction-icon-button:focus {
   outline: none;
+}
+
+.transaction-arrow {
+  transition: transform 0.3s ease;
+}
+
+.transaction-arrow.open {
+  transform: rotate(90deg);
+}
+
+.transaction-details-wrapper {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.3s ease-out;
+  background-color: #f3f3f3;
+  border: 1px solid #ccc;
+  border-top: none;
+  margin-top: -15px;
+  border-radius: 0 0 7px 7px;
+}
+
+.transaction-details-wrapper.open {
+  max-height: 500px; /* Ajustez cette valeur selon vos besoins */
+  transition: max-height 0.5s ease-in;
+  margin-top: -15px;
+  border-radius: 0 0 7px 7px;
 }
 
 /* Media Queries */

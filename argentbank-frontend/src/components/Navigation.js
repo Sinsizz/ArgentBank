@@ -1,11 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout } from '../store/userSlice';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPowerOff, faGear } from '@fortawesome/free-solid-svg-icons';
-import { faUser } from '@fortawesome/free-regular-svg-icons';
-import EditUserForm from './EditUserForm';
+import { faPowerOff, faUserCircle, faGear } from '@fortawesome/free-solid-svg-icons';
 import logo from '../asset/img/argentBankLogo.png';
 
 function Navigation() {
@@ -14,7 +12,6 @@ function Navigation() {
   const location = useLocation();
   const isHomePage = location.pathname === '/';
   const { profile, token, username } = useSelector(state => state.user);
-  const [showEditForm, setShowEditForm] = useState(false);
 
   const handleAuth = () => {
     if (token) {
@@ -24,6 +21,8 @@ function Navigation() {
       navigate('/sign-in');
     }
   };
+
+  const displayName = username || (profile && profile.firstName) || '';
 
   return (
     <nav className={`main-nav ${isHomePage ? '' : 'main-nav-with-margin'}`}>
@@ -41,17 +40,12 @@ function Navigation() {
           {token && (
             <>
               <div className="user-info-container">
-                <button className="main-nav-item user-info" onClick={() => setShowEditForm(true)}>
-                  <span className="user-name">{username || profile?.firstName}</span>
+                <Link to="/user" className="main-nav-item user-info">
+                  <span className="user-name">{displayName}</span>
                   <div className="user-icon-wrapper">
-                    <FontAwesomeIcon icon={faUser} className="nav-icon user-icon" />
+                    <FontAwesomeIcon icon={faUserCircle} className="nav-icon user-icon" />
                   </div>
-                </button>
-                {showEditForm && (
-                  <div className="edit-form-popup">
-                    <EditUserForm onClose={() => setShowEditForm(false)} />
-                  </div>
-                )}
+                </Link>
               </div>
               <Link className="main-nav-item" to="/settings">
                 <FontAwesomeIcon icon={faGear} className="nav-icon" />
@@ -65,7 +59,7 @@ function Navigation() {
           )}
           {!token && (
             <button className="main-nav-item power-button" onClick={handleAuth}>
-              <FontAwesomeIcon icon={faPowerOff} className="nav-icon" />
+              <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />
               <span className="sr-only">Sign In</span>
             </button>
           )}
