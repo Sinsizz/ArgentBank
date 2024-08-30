@@ -7,12 +7,18 @@ import { faPowerOff, faUserCircle, faGear } from '@fortawesome/free-solid-svg-ic
 import logo from '../asset/img/argentBankLogo.png';
 
 function Navigation() {
+  // Hooks React Router et Redux
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const location = useLocation();
+  
+  // Vérifie si on est sur la page d'accueil
   const isHomePage = location.pathname === '/';
+  
+  // Récupère les informations utilisateur du state Redux
   const { profile, token, username } = useSelector(state => state.user);
 
+  // Gère la connexion/déconnexion
   const handleAuth = () => {
     if (token) {
       dispatch(logout());
@@ -22,11 +28,13 @@ function Navigation() {
     }
   };
 
+  // Détermine le nom à afficher (username ou prénom)
   const displayName = username || (profile && profile.firstName) || '';
 
   return (
     <nav className={`main-nav ${isHomePage ? '' : 'main-nav-with-margin'}`}>
       <div className={`main-nav-content ${isHomePage ? '' : 'container'}`}>
+        {/* Logo et lien vers la page d'accueil */}
         <Link className="main-nav-logo" to="/">
           <img
             className="main-nav-logo-image"
@@ -37,8 +45,10 @@ function Navigation() {
         </Link>
         
         <div className="main-nav-items">
+          {/* Affichage conditionnel basé sur l'état de connexion */}
           {token && (
             <>
+              {/* Informations utilisateur et lien vers le profil */}
               <div className="user-info-container">
                 <Link to="/user" className="main-nav-item user-info">
                   <span className="user-name">{displayName}</span>
@@ -47,16 +57,19 @@ function Navigation() {
                   </div>
                 </Link>
               </div>
+              {/* Lien vers les paramètres */}
               <Link className="main-nav-item" to="/settings">
                 <FontAwesomeIcon icon={faGear} className="nav-icon" />
                 <span className="sr-only">Settings</span>
               </Link>
+              {/* Bouton de déconnexion */}
               <button className="main-nav-item power-button" onClick={handleAuth}>
                 <FontAwesomeIcon icon={faPowerOff} className="nav-icon" />
                 <span className="sr-only">Sign Out</span>
               </button>
             </>
           )}
+          {/* Bouton de connexion si l'utilisateur n'est pas connecté */}
           {!token && (
             <button className="main-nav-item power-button" onClick={handleAuth}>
               <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />

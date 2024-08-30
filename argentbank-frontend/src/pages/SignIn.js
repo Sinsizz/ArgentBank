@@ -7,8 +7,12 @@ import '../asset/main.css';
 function SignIn() {
   return (
     <div className="App">
+      {/* Composant de navigation en haut de la page */}
       <Navigation />
+
+      {/* Contenu principal de la page */}
       <main className="main bg-dark">
+        {/* Formulaire de connexion */}
         <SignInForm />
       </main>
       <Footer />

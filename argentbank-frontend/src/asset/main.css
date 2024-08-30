@@ -98,7 +98,7 @@ h1 {
 }
 
 .main-nav-item:hover .user-icon {
-  color: #13d18b; /* Ajouté pour correspondre au comportement de survol des autres icônes */
+  color: #13d18b; 
 }
 
 .main-nav-logo {
@@ -124,8 +124,8 @@ h1 {
 }
 
 .user-icon {
-  color: #00bc77; /* Changé de white à #00bc77 pour correspondre aux autres icônes */
-  font-size: 2rem; /* Augmenté la taille pour correspondre aux autres icônes */
+  color: #00bc77; 
+  font-size: 2rem; 
 }
 
 .user-icon-button {
@@ -141,7 +141,7 @@ h1 {
   align-items: center;
   width: 45px;
   height: 45px;
-  background-color: transparent; /* Changé de #00bc77 à transparent */
+  background-color: transparent;
   border-radius: 50%;
 }
 
@@ -509,7 +509,7 @@ h1 {
 }
 
 .transaction-details-wrapper.open {
-  max-height: 500px; /* Ajustez cette valeur selon vos besoins */
+  max-height: 500px; 
   transition: max-height 0.5s ease-in;
   margin-top: -15px;
   border-radius: 0 0 7px 7px;
