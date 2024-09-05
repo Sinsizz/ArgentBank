@@ -8,6 +8,7 @@ function SignInForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [rememberMe, setRememberMe] = useState(false);
+  const [error, setError] = useState(''); // Nouvel état pour le message d'erreur
 
   // Hooks Redux et React Router
   const dispatch = useDispatch();
@@ -16,6 +17,7 @@ function SignInForm() {
   // Fonction de gestion de la soumission du formulaire
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setError(''); // Réinitialiser le message d'erreur à chaque tentative
     try {
       // Appel API pour la connexion
       const response = await fetch('http://localhost:3001/api/v1/user/login', {
@@ -49,12 +51,12 @@ function SignInForm() {
       } else {
         // Gestion des erreurs de connexion
         console.error('Login failed:', data);
-        alert(data.message || 'Email ou mot de passe invalide. Veuillez réessayer.');
+        setError(data.message || 'Email ou mot de passe invalide. Veuillez réessayer.');
       }
     } catch (error) {
       // Gestion des erreurs générales
       console.error('Erreur lors de la connexion:', error);
-      alert('Une erreur est survenue. Veuillez réessayer plus tard.');
+      setError('Une erreur est survenue. Veuillez réessayer plus tard.');
     }
   };
 
@@ -63,6 +65,7 @@ function SignInForm() {
     <section className="sign-in-content">
       <i className="fa fa-user-circle sign-in-icon"></i>
       <h1>Sign In</h1>
+      {error && <div className="error-message">{error}</div>} {/* Affichage du message d'erreur */}
       <form onSubmit={handleSubmit}>
         {/* Champ email */}
         <div className="input-wrapper">
