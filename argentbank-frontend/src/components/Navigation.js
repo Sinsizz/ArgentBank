@@ -46,7 +46,7 @@ function Navigation() {
         
         <div className="main-nav-items">
           {/* Affichage conditionnel basé sur l'état de connexion */}
-          {token && (
+          {token ? (
             <>
               {/* Informations utilisateur et lien vers le profil */}
               <div className="user-info-container">
@@ -68,13 +68,20 @@ function Navigation() {
                 <span className="sr-only">Sign Out</span>
               </button>
             </>
-          )}
-          {/* Bouton de connexion si l'utilisateur n'est pas connecté */}
-          {!token && (
-            <button className="main-nav-item power-button" onClick={handleAuth}>
-              <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />
-              <span className="sr-only">Sign In</span>
-            </button>
+          ) : (
+            // Affichage conditionnel pour les utilisateurs non connectés
+            isHomePage ? (
+              // Lien "Sign In" sur la page d'accueil
+              <Link to="/sign-in" className="main-nav-item">
+                Sign In
+              </Link>
+            ) : (
+              // Bouton de connexion avec icône sur les autres pages
+              <button className="main-nav-item power-button" onClick={handleAuth}>
+                <FontAwesomeIcon icon={faUserCircle} className="nav-icon" />
+                <span className="sr-only">Sign In</span>
+              </button>
+            )
           )}
         </div>
       </div>
